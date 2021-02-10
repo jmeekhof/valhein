@@ -1,15 +1,15 @@
 terraform {
-    required_providers {
-      aws = {
-        source  = "hashicorp/aws"
-        version = "~> 3.22.0"
-      }
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.22.0"
     }
   }
+}
 
-  provider "aws" {
-    profile = "default"
-    region  = var.region
+provider "aws" {
+  profile = "default"
+  region  = var.region
 }
 
 data "aws_ami" "ubuntu" {
@@ -26,5 +26,10 @@ data "aws_ami" "ubuntu" {
   }
 
   owners = ["099720109477"]
+}
+
+resource "aws_instance" "valhein" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = var.instance_type
 }
 
